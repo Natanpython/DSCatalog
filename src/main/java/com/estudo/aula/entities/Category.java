@@ -59,4 +59,6 @@ public class Category implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
