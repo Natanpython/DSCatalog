@@ -3,6 +3,7 @@ package com.estudo.aula.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,12 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdAt;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products = new java.util.ArrayList<>();
@@ -45,6 +52,25 @@ public class Category implements Serializable {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = Instant.now();
     }
 
     @Override

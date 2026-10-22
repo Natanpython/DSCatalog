@@ -4,6 +4,8 @@ import com.estudo.aula.dto.CategoryDTO;
 import com.estudo.aula.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,8 +21,8 @@ public class CategoryController {
     private CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> findAll(){
-        List<CategoryDTO> dtos = service.findAll();
+    public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable){
+        Page<CategoryDTO> dtos = service.findAll(pageable);
         return ResponseEntity.ok().body(dtos);
     }
 
