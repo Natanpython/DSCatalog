@@ -47,14 +47,12 @@ public class CategoryService {
 
     @Transactional
     public CategoryDTO update(Long id, CategoryDTO dto){
-       try{
-              Category category = repository.getReferenceById(id);
-                category.setName(dto.getName());
-                category = repository.save(category);
-                return new CategoryDTO(category);
-       }catch (ResourceNotFoundException e){
-              throw new ResourceNotFoundException("Recurso não encontrado");
-       }
+        Category category = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado")
+        );
+        category.setName(dto.getName());
+        category = repository.save(category);
+        return new CategoryDTO(category);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
