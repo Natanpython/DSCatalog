@@ -77,6 +77,10 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     //--
     //Importante
     public void addRole(Role role){
@@ -140,4 +144,6 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
