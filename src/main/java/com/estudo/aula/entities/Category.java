@@ -52,14 +52,9 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-
-
     public Instant getCreatedAt() {
         return createdAt;
     }
-
-
-
 
     public Instant getUpdatedAt() {
         return updatedAt;
