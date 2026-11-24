@@ -1,7 +1,8 @@
 package com.estudo.aula.dto;
 
 import com.estudo.aula.entities.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,24 +10,24 @@ import java.util.List;
 public class UserDTO {
 
     private Long id;
+
+    @NotBlank(message = "Campo obrigatorio.")
     private String firstName;
     private String lastName;
-    private String email;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+    @Email(message = "Inserir email valido.")
+    private String email;
 
     private List<RoleDTO> roles = new ArrayList<>();
 
 
     public UserDTO(){}
 
-    public UserDTO(Long id, String firstName , String lastName, String email , String password) {
+    public UserDTO(Long id, String firstName , String lastName, String email ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
 
     }
 
@@ -72,14 +73,6 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<RoleDTO> getRoles() {

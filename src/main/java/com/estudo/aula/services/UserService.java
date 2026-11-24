@@ -2,6 +2,7 @@ package com.estudo.aula.services;
 
 import com.estudo.aula.dto.RoleDTO;
 import com.estudo.aula.dto.UserDTO;
+import com.estudo.aula.dto.UserInsertDTO;
 import com.estudo.aula.entities.Role;
 import com.estudo.aula.entities.User;
 import com.estudo.aula.projections.UserDetailsProjection;
@@ -88,7 +89,7 @@ public class UserService implements UserDetailsService {
 
     //Post inserir novo user
     @Transactional
-    public UserDTO insert(UserDTO dto) {
+    public UserDTO insert(UserInsertDTO dto) {
         User user = new User();
         copyDtoToEntity(dto, user);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));

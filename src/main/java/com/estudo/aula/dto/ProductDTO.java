@@ -3,6 +3,7 @@ package com.estudo.aula.dto;
 import com.estudo.aula.entities.Category;
 import com.estudo.aula.entities.Product;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -24,6 +25,8 @@ public class ProductDTO {
     private Double price;
 
     private String imgUrl;
+
+    @PastOrPresent(message = "A data do produto não pode ser futura.")
     private Instant date;
 
     private Set<CategoryDTO> categories = new HashSet<>();

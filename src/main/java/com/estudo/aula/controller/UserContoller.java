@@ -1,8 +1,10 @@
 package com.estudo.aula.controller;
 
 import com.estudo.aula.dto.UserDTO;
+import com.estudo.aula.dto.UserInsertDTO;
 import com.estudo.aula.repositories.UserRepository;
 import com.estudo.aula.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,15 +34,16 @@ public class UserContoller {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO dto){
-        dto = service.insert(dto);
+    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto){
+        UserDTO result = service.insert(dto);
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+                .buildAndExpand(result.getId()).toUri();
+        return ResponseEntity.created(uri).body(result);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO dto){
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto){
         dto = service.update(id, dto);
         return  ResponseEntity.ok().body(dto);
     }
