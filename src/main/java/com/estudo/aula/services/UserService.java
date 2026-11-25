@@ -3,6 +3,7 @@ package com.estudo.aula.services;
 import com.estudo.aula.dto.RoleDTO;
 import com.estudo.aula.dto.UserDTO;
 import com.estudo.aula.dto.UserInsertDTO;
+import com.estudo.aula.dto.UserUpdateDTO;
 import com.estudo.aula.entities.Role;
 import com.estudo.aula.entities.User;
 import com.estudo.aula.projections.UserDetailsProjection;
@@ -100,7 +101,7 @@ public class UserService implements UserDetailsService {
 
     //PUT editar user
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try{
             User entity = repository.getReferenceById(id);
 

@@ -2,6 +2,7 @@ package com.estudo.aula.controller;
 
 import com.estudo.aula.dto.UserDTO;
 import com.estudo.aula.dto.UserInsertDTO;
+import com.estudo.aula.dto.UserUpdateDTO;
 import com.estudo.aula.repositories.UserRepository;
 import com.estudo.aula.services.UserService;
 import jakarta.validation.Valid;
@@ -43,9 +44,9 @@ public class UserContoller {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto){
-        dto = service.update(id, dto);
-        return  ResponseEntity.ok().body(dto);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto){
+       UserDTO NewDto = service.update(id, dto);
+        return  ResponseEntity.ok().body(NewDto);
     }
 
     @DeleteMapping(value ="/{id}")
