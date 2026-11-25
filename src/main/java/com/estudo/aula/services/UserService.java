@@ -6,7 +6,6 @@ import com.estudo.aula.dto.UserInsertDTO;
 import com.estudo.aula.dto.UserUpdateDTO;
 import com.estudo.aula.entities.Role;
 import com.estudo.aula.entities.User;
-import com.estudo.aula.projections.UserDetailsProjection;
 import com.estudo.aula.repositories.RoleRepository;
 import com.estudo.aula.repositories.UserRepository;
 import com.estudo.aula.services.Exceptions.DatabaseException;
@@ -16,39 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     @Autowired
     private UserRepository repository;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
-        if (result.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        User user = new User();
-        user.setEmail(username);
-        user.setPassword(result.get(0).getPassword());
-        for(UserDetailsProjection projection : result) {
-            user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
-        }
-
-        return user;
-    }
 
     @Autowired
     private RoleRepository roleRepository;
